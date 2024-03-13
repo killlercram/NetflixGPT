@@ -1,11 +1,7 @@
+import Body from "./components/Body";
 
 function App() {
-
-  return (
-    
-     <div className="text-center text-3xl font-bold">Namaste today we are going for making the Netflix</div>
-  
-  )
+return <Body/>
 }
 
 export default App;
