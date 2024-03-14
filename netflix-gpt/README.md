@@ -1,11 +1,24 @@
 # Netflix gpt
+
 -we started we vite
 -then we added tailWind css
 -Header
+-Routing of App
 -Login Form/sign in
--sign up
+-sign up form
+-Form Validation
+-useRef Hook
+-Firebase setup
+-Deploying ourr app to production
+-Creating Signup User Account
+-implement sign in user api
+-created Redux store with user slice
+
 
 -
+
+-
+
 # ShortCuts/Tricks
 
 - rafce -This create a automatic components
@@ -20,10 +33,11 @@
   -Header
   -Main movie
   -Trailer in BackGround
+
   - title & description
     -Movies Suggestion
     -MovieList\*n
 
 - Netflix gpt
-   -Search Bar
-   -Movie Suggestion
+  -Search Bar
+  -Movie Suggestion
