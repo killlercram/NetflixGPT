@@ -1,5 +1,5 @@
 # Netflix gpt
-
+- login page
 -we started we vite
 -then we added tailWind css
 -Header
@@ -13,7 +13,11 @@
 -Creating Signup User Account
 -implement sign in user api
 -created Redux store with user slice
+-Implement sign out
+-update profile
 
+- Browse page
+-fetch from tmdb MOvies
 
 -
 
