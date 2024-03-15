@@ -15,6 +15,8 @@
 -created Redux store with user slice
 -Implement sign out
 -update profile
+-bugFix:Sign up user displayName and profile update
+-bugFix:if the user is not logged in Redirect/browse to login page and vice-versa
 
 - Browse page
 -fetch from tmdb MOvies
