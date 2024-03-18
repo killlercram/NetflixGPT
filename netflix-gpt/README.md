@@ -20,6 +20,12 @@
   -bugFix:if the user is not logged in Redirect/browse to login page and vice-versa
   -unsubscribed to the onAuthStateChange call back
   -Added hardcoded values to the constants files.
+  -build secondary
+  -build movie list
+  -build movie card
+  -tmdb image cdn url
+  -made the browser page amazing with tailwind
+  -another custom hook popular movies
 
 - Browse page
   -fetch from tmdb MOvies
@@ -32,7 +38,9 @@
   -fetch Data for Trailer Video
   -Update Store with Trailer Video Data
   -Embedded the Youtube video and make it autoPlay and mute
-  TailWind Classde to make Mani Container Look awesome
+  -TailWind Classde to make Mani Container Look awesome
+   - Secondary Container
+   -
   
 
 
