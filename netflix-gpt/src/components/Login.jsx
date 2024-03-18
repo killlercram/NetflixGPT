@@ -1,15 +1,19 @@
 import { useState, useRef } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-import {createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile} from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../utils/firebase.jsx";
 //import {useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-
+import { USER_AVTAR } from "../utils/constant.jsx";
 
 const Login = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   // const navigate=useNavigate();
   //Sign in/up
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -17,7 +21,7 @@ const Login = () => {
     setIsSignInForm(!isSignInForm);
   };
   //Email Validate
-  const name=useRef(null);
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -37,49 +41,69 @@ const Login = () => {
 
     //other way
     if (message) return;
-    if(!isSignInForm){//sign up form logic
-      createUserWithEmailAndPassword(auth,email.current.value, password.current.value)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;//user created
-    updateProfile(user, {//current user is the user
-      displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/111636617?s=400&u=35a277e324855676234ec077bcb421a7e0deb3a9&v=4"
-    }).then(() => {
-      const {uid,email,displayName,photoURL} = auth.currentUser;//we will take it from auth as it has updated value of the user.
-      // here i can update the store 
-      //adding user
-      dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
-      // Profile updated! now nevigate
-      // navigate("/browse");
-    }).catch((error) => {
-      // An error occurred
-      // ...
-      setErrorMessage(error.message);
-    });
+    if (!isSignInForm) {
+      //sign up form logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user; //user created
+          updateProfile(user, {
+            //current user is the user
+            displayName: name.current.value,
+            photoURL: USER_AVTAR,
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser; //we will take it from auth as it has updated value of the user.
+              // here i can update the store
+              //adding user
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              // Profile updated! now nevigate
+              // navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+              setErrorMessage(error.message);
+            });
 
-
-    console.log(user);
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    setErrorMessage(errorCode+"-"+errorMessage);
-    // ..
-  });
-    }else{//sign in logic form
-      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // navigate("/browse");
-    console.log(user);
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    setErrorMessage(errorCode+" - "+errorMessage);
-  });
+          // console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+          // ..
+        });
+    } else {
+      //sign in logic form
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // navigate("/browse");
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + " - " + errorMessage);
+        });
     }
   };
 
@@ -104,7 +128,7 @@ const Login = () => {
           </h1>
           {!isSignInForm && (
             <input
-            ref={name}
+              ref={name}
               type="text"
               placeholder="Full Name"
               className="p-3 w-full my-2 rounded-md bg-gray-800"
