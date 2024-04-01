@@ -41,7 +41,10 @@
   -TailWind Classde to make Mani Container Look awesome
    - Secondary Container
    -
-  
+- Adding Gpt Search Box
+ -gpt search bar
+ -multi-language feature in our gpt search page
+ -
 
 
 -

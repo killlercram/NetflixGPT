@@ -7,12 +7,15 @@ import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constant";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constant";
+import { ToggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const showGptSearch=useSelector((store)=>store.gpt.showGptSearch);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -45,6 +48,18 @@ const unsubscribe=onAuthStateChanged(auth, (user) => {
 });
 return()=>unsubscribe();//will be called when component unmounts
   },[]);
+
+  const handleGptSearchClick=()=>{
+    //Toggle GPT search
+    dispatch(ToggleGptSearchView())
+
+  }
+  
+  const handleLanguageChange =(e)=>{
+    //console.log(e.target.value);
+    dispatch(changeLanguage(e.target.value));
+  }
+
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
       <img
@@ -53,9 +68,15 @@ return()=>unsubscribe();//will be called when component unmounts
         alt="logo"
       />
 
-     {user && <div className="flex p-6">
+     {user && <div className="y-2 flex p-6 align-baseline">
+    {showGptSearch && ( <select className="p-2 bg-gray-900 text-white m-2" onClick={handleLanguageChange}>
+        {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier}
+        value={lang.identifier}>{lang.name}</option>)}
+      </select>)}
+      <button className="text-white rounded-lg text-lg py-2 px-4 mx-4 my-2 bg-purple-800" onClick={handleGptSearchClick}>{showGptSearch?"Home Page":"GPT Search"}</button>
+
         <img
-          className="w-12 h-10 rounded-xl"
+          className="w-auto h-12 rounded-xl"
           src={user.photoURL}
           alt="side_logo"
         ></img>
